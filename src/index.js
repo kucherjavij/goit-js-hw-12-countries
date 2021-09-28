@@ -22,20 +22,15 @@ refs.input.addEventListener('input',debounce(makeCountry, 500) )
 
 function makeCountry (e){
 
-const searchQuery = e.target.value
+const searchQuery = e.target.value.trim()
 
 fetchCountry.getCountries(searchQuery).then(createCountry).catch(onFetchError)
 }
 
 function createCountry(e){
-if (e.status === 404) {
-    refs.div.innerHTML = '';
-    alert({text:'Check the correctness of the data entered, this country does not exist!'})
-return
-    
-}
 
- else if (e.length > 10) {
+
+ if (e.length > 10) {
     refs.div.innerHTML = '';
     error({ text: 'Too many matches found. Please enter a more specific query!' })
 return
@@ -47,6 +42,11 @@ return}
 else if (e.length > 1) {
     refs.div.innerHTML = countryList(e)
     return
+}
+else if(e.status === 404) {
+    refs.div.innerHTML = '';
+    alert({text:'Check the correctness of the data entered, this country does not exist!'})
+        return
 }
 refs.div.innerHTML = country(e)
 

@@ -25,6 +25,8 @@ function makeCountry (e){
 const searchQuery = e.target.value.trim()
 
 fetchCountry.getCountries(searchQuery).then(createCountry).catch(onFetchError)
+
+
 }
 
 function createCountry(e){
@@ -39,6 +41,7 @@ else if (e.length === 0 ) {
     refs.div.innerHTML = '';
 return}
 
+
 else if (e.length > 1) {
     refs.div.innerHTML = countryList(e)
     return
@@ -48,10 +51,18 @@ else if(e.status === 404) {
     alert({text:'Check the correctness of the data entered, this country does not exist!'})
         return
 }
-refs.div.innerHTML = country(e)
+else if(refs.input.value===null||refs.input.value===''||refs.input.value===' ') {
+    refs.div.innerHTML = '';
+    
+        return
+}
+
+ refs.div.innerHTML = country(e)
 
 // console.log(country(e));
 }
+
+
 
 function onFetchError(err) {
     refs.div.innerHTML = ''

@@ -59,7 +59,6 @@ else if(refs.input.value===null||refs.input.value===''||refs.input.value===' ') 
 
  refs.div.innerHTML = country(e)
 
-// console.log(country(e));
 }
 
 

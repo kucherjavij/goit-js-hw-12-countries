@@ -23,26 +23,28 @@ refs.input.addEventListener('input',debounce(makeCountry, 500) )
 function makeCountry (e){
 
 const searchQuery = e.target.value.trim()
-
+if (!searchQuery)return;
 fetchCountry.getCountries(searchQuery).then(createCountry).catch(onFetchError)
 
+    
 
 }
 
 function createCountry(e){
 
 
- if (e.length > 10) {
+
+  if (e.length > 10) {
     refs.div.innerHTML = '';
     error({ text: 'Too many matches found. Please enter a more specific query!' })
 return
 }
-else if (e.length === 0 ) {
+ if (e.length === 0 ) {
     refs.div.innerHTML = '';
 return}
 
 
-else if (e.length > 1) {
+else if (e.length > 1 && e.length <= 10) {
     refs.div.innerHTML = countryList(e)
     return
 }
@@ -51,11 +53,7 @@ else if(e.status === 404) {
     alert({text:'Check the correctness of the data entered, this country does not exist!'})
         return
 }
-else if(refs.input.value===null||refs.input.value===''||refs.input.value===' ') {
-    refs.div.innerHTML = '';
-    
-        return
-}
+
 
  refs.div.innerHTML = country(e)
 
